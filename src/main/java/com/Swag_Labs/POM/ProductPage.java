@@ -1,55 +1,57 @@
 package com.Swag_Labs.POM;
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductPage {
+    private WebDriver driver;
 
-	    WebDriver driver;
+    @FindBy(xpath = "//div[@class='inventory_item_name ']")
+    private List<WebElement> allProductTitles;
 
-	    
-	    @FindBy(id="add-to-cart-sauce-labs-backpack")
-	    private WebElement backpackAddBtn;
+    @FindBy(id = "add-to-cart-sauce-labs-backpack")
+    private WebElement addBackpackButton;
 
-	    @FindBy(id = "add-to-cart-sauce-labs-bike-light")
-	    private WebElement bikeLightAddBtn;
+    @FindBy(id = "add-to-cart-sauce-labs-bike-light")
+    private WebElement addBikeLightButton;
 
-	    @FindBy(className = "shopping_cart_link")
-	    private WebElement cartIcon;
+    @FindBy(className = "shopping_cart_link")
+    private WebElement cartIcon;
 
-	    @FindBy(xpath = "//span[@class='title']")
-	    private WebElement productsTitle;
+    private final List<String> addedProducts = new ArrayList<>();
 
-	    // ✅ Constructor
-	    public ProductPage(WebDriver driver) {
-	        this.driver = driver;
-	        PageFactory.initElements(driver, this);
-	    }
+    public ProductPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
-	    // ✅ Verify you're on the Products page
-	    public boolean isProductsPageDisplayed() {
-	        return productsTitle.isDisplayed();
-	    }
+    // ✅ Add products dynamically and store their names
+    public void addTwoProducts() {
+        addBackpackButton.click();
+        addedProducts.add("Sauce Labs Backpack");
 
-	    // ✅ Add two products
-	    public void addTwoProductsToCart() {
-	        backpackAddBtn.click();
-	        bikeLightAddBtn.click();
-	    }
+        addBikeLightButton.click();
+        addedProducts.add("Sauce Labs Bike Light");
+    }
 
-	    // ✅ Navigate to Cart
-	    public void goToCart() {
-	        cartIcon.click();
-	    }
+    // ✅ Get list of products that were added
+    public List<String> getAddedProductNames() {
+        return addedProducts;
+    }
 
-	    // ✅ Optional: Get current page title
-	    public String getPageTitle() {
-	        return driver.getTitle();
-	    }
-	}
+    // ✅ Get total count of added items
+    public int getAddedProductCount() {
+        return addedProducts.size();
+    }
 
-	
-
-
+    public CartPage goToCart() {
+        cartIcon.click();
+        return new CartPage(driver);
+    }
+}

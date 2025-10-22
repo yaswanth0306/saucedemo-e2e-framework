@@ -39,7 +39,7 @@ public class BaseClass {
 	}
 	
 	@BeforeMethod
-	public void loginToVtigers() throws IOException {
+	public void loginToSauceDemo() throws IOException {
 		LoginPage lp = new LoginPage(driver);
 		String un = f.readDataFromTestdataExcel("1",1,0);
 		String pw = f.readDataFromTestdataExcel("1",1,1);
@@ -48,8 +48,9 @@ public class BaseClass {
 	}
 	
 	@AfterMethod
-	public void LogoutToActitime() {
-		driver.findElement(By.id("logoutLink")).click();
+	public void LogoutToSauceDemo() {
+		driver.findElement(By.id("react-burger-menu-btn")).click();
+		driver.findElement(By.id("logout_sidebar_link")).click();
 		Reporter.log("loged out",true);
 	}
 	@AfterTest

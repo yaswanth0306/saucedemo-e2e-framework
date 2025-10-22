@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CheckoutInfoPage {
+public class CheckoutPage {
 	
 	
 	    private WebDriver driver;
@@ -23,13 +23,12 @@ public class CheckoutInfoPage {
 	    @FindBy(id = "continue")
 	    private WebElement continueButton;
 
-	    // --- Constructor ---
-	    public CheckoutInfoPage(WebDriver driver) {
+	    public CheckoutPage(WebDriver driver) {
 	        this.driver = driver;
 	        PageFactory.initElements(driver, this);
 	    }
 
-	    // --- Actions ---
+	    
 	    public void enterCheckoutInformation(String firstName, String lastName, String zip) {
 	        firstNameInput.clear();
 	        firstNameInput.sendKeys(firstName);
@@ -41,8 +40,9 @@ public class CheckoutInfoPage {
 	        zipCodeInput.sendKeys(zip);
 	    }
 
-	    public void clickContinue() {
+	    public OrderSummaryPage clickContinue() {
 	        continueButton.click();
+	        return new OrderSummaryPage(driver);
 	    }
 	}
 

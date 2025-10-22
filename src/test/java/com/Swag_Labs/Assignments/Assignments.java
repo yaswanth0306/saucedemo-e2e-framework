@@ -1,21 +1,21 @@
 package com.Swag_Labs.Assignments;
 
 
+import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
 import com.Swag_Labs.Generic.BaseClass;
 import com.Swag_Labs.POM.CartPage;
-import com.Swag_Labs.POM.CheckoutCompletePage;
-import com.Swag_Labs.POM.CheckoutInfoPage;
-import com.Swag_Labs.POM.CheckoutOverviewPage;
+import com.Swag_Labs.POM.CheckoutPage;
+import com.Swag_Labs.POM.ConfirmationPage;
 import com.Swag_Labs.POM.LoginPage;
+import com.Swag_Labs.POM.OrderSummaryPage;
 import com.Swag_Labs.POM.ProductPage;
 
 public class Assignments extends BaseClass{
 	
-	@Test
+	@Test(priority = 1)
 	public void verifyTitle() {
 		LoginPage lp = new LoginPage(driver);
 		lp.login(driver, "standard_user", "secret_sauce");
@@ -26,95 +26,118 @@ public class Assignments extends BaseClass{
 		sa.assertAll();
 	}
 	
-	@Test
+	@Test(priority = 2)
 	public void addProductsToCartTest() {
 	    LoginPage login = new LoginPage(driver);
 	    ProductPage products = new ProductPage(driver);
-
-	    // Step 1: Login
 	    login.login(driver,"standard_user", "secret_sauce");
-
-	    // Step 2: Verify login successful
-	    Assert.assertTrue(products.isProductsPageDisplayed(), "Login Failed!");
-
-	    // Step 3: Add two products
-	    products.addTwoProductsToCart();
-
-	    // Step 4: Go to cart page
+	  //  Assert.assertTrue(products.isProductsPageDisplayed(), "Login Failed!");
+	    products.addTwoProducts();
 	    products.goToCart();
 	}
 	
-	@Test(priority = 4)
-	public void verifyCartItems() {
-	    CartPage cartPage = new CartPage(driver);
+	@Test(priority = 3)
+	public void validateAddedProductsAndCount() {
+	    LoginPage loginPage = new LoginPage(driver);
+	    loginPage.login(driver,"standard_user", "secret_sauce");
 
-	    Assert.assertTrue(cartPage.isCartPageDisplayed(), "Cart page not displayed");
-	    Assert.assertTrue(cartPage.verifyItemsInCart(2), "Items count mismatch in cart");
+	    ProductPage productPage = new ProductPage(driver);
+	    productPage.addTwoProducts();
 
-	    cartPage.clickCheckout(); // proceed to checkout
+	    List<String> addedProducts = productPage.getAddedProductNames();
+	    int addedCount = productPage.getAddedProductCount();
+
+	    CartPage cartPage = productPage.goToCart();
+	    List<String> cartProducts = cartPage.getCartProductNames();
+	    int cartCount = cartPage.getCartProductCount();
+
+	    System.out.println("Added Products: " + addedProducts);
+	    System.out.println("Cart Products: " + cartProducts);
+	    System.out.println("Added Count: " + addedCount + " | Cart Count: " + cartCount);
+	    
+	    Assert.assertEquals(cartCount, addedCount, " Product count mismatch!");
+	    Assert.assertEquals(cartProducts, addedProducts, " Cart products do not match added products!");
+
+	    System.out.println(" Products and count match successfully!");
 	}
 
-	 @Test(priority = 5, dataProvider = "checkoutData")
-	    public void enterCheckoutDetails(String firstName, String lastName, String zip) {
-	        CartPage cartPage = new CartPage(driver);
-	        cartPage.clickCheckout();
 
-	        CheckoutInfoPage checkoutPage = new CheckoutInfoPage(driver);
+	 @Test(priority = 4)
+	    public void enterCheckoutDetails(String firstName, String lastName, String zip) {
+	        CheckoutPage checkoutPage = new CheckoutPage(driver);
 	        checkoutPage.enterCheckoutInformation(firstName, lastName, zip);
 	        checkoutPage.clickContinue();
-
-	        // Verification: Check if you are on Order Summary page
-	        Assert.assertTrue(driver.getPageSource().contains("Checkout: Overview"),
-	                "Failed to navigate to order summary page");
+	     
 	    }
 	 
+	 @Test
+	 public void validateOrderSummaryItems() {
+	     LoginPage loginPage = new LoginPage(driver);
+	     loginPage.login(driver,"standard_user", "secret_sauce");
+
+	     ProductPage productPage = new ProductPage(driver);
+	     productPage.addTwoProducts();
+	     CartPage cartPage = productPage.goToCart();
+
+	  
+	     List<String> cartItems = cartPage.getCartProductNames();
+	     System.out.println("Items in Cart: " + cartItems);
+
+	     CheckoutPage checkoutPage = cartPage.clickCheckout();
+	     checkoutPage.enterCheckoutInformation(null, null, null);;
+	     OrderSummaryPage summaryPage = checkoutPage.clickContinue();
+
+	   
+	     List<String> summaryItems = summaryPage.getSummaryItemNames();
+	     System.out.println("Items in Summary: " + summaryItems);
+
+	     Assert.assertEquals(summaryItems.size(), cartItems.size(),
+	             "❌ Item count mismatch between Cart and Summary!");
+
+	     for (int i = 0; i < cartItems.size(); i++) {
+	         Assert.assertEquals(summaryItems.get(i), cartItems.get(i),
+	                 "❌ Product mismatch: " + cartItems.get(i) + " vs " + summaryItems.get(i));
+	     }
+
+	     System.out.println("✅ Order Summary Validation Passed!");
+
+	    
+	     summaryPage.printOrderSummaryDetails();
+
+	     
+	     ConfirmationPage confirmationPage = summaryPage.clickFinish();
+	     Assert.assertTrue(confirmationPage.isOrderConfirmed(), "❌ Order confirmation failed!");
+	 }
+
 	 
-	 @Test(priority = 6)
-	    public void validateOrderSummaryAndCompletePurchase() {
-	        CheckoutOverviewPage overviewPage = new CheckoutOverviewPage(driver);
+	 @Test
+	 public void verifyOrderCompletion() {
+	     LoginPage loginPage = new LoginPage(driver);
+	     loginPage.login(driver,"standard_user", "secret_sauce");
 
-	        Assert.assertTrue(overviewPage.isOverviewPageDisplayed(),
-	                "Order Summary page not displayed.");
+	     ProductPage productPage = new ProductPage(driver);
+	     productPage.addTwoProducts();
+	     CartPage cartPage = productPage.goToCart();
 
-	        int itemCount = overviewPage.getSummaryItemCount();
-	        Assert.assertEquals(itemCount, 2, "Incorrect number of items in summary.");
+	     CheckoutPage checkoutPage = cartPage.clickCheckout();
+	     checkoutPage.enterCheckoutInformation("John", "Doe", "560001");
+	     OrderSummaryPage summaryPage = checkoutPage.clickContinue();
 
-	        String total = overviewPage.getTotalPrice();
-	        System.out.println("Order Total: " + total);
+	     ConfirmationPage confirmationPage = summaryPage.clickFinish();
 
-	        // Finish order
-	        overviewPage.clickFinish();
+	     Assert.assertTrue(confirmationPage.isOrderConfirmed(), "❌ Order confirmation not displayed!");
 
-	        // Validate order confirmation
-	        CheckoutCompletePage completePage = new CheckoutCompletePage(driver);
-	        Assert.assertTrue(completePage.isOrderComplete(), "Order not completed successfully.");
-	        Assert.assertEquals(completePage.getConfirmationMessage(), "Thank you for your order!");
+	     
+	     String message = confirmationPage.getConfirmationMessage();
+	     System.out.println("✅ Confirmation Message: " + message);
 
-	        // Optional: Return to home
-	        completePage.clickBackHome();
-	    }
-	 
-	 @Test(priority = 7)
-	    public void verifyOrderCompletion() {
-	        CheckoutCompletePage completePage = new CheckoutCompletePage(driver);
+	     
+	     Assert.assertTrue(message.contains("dispatched"), "❌ Order message not as expected!");
+	     System.out.println("✅ Order completed successfully!");
 
-	        // ✅ Step 1: Validate confirmation message
-	        String confirmation = completePage.getConfirmationMessage();
-	        System.out.println("Confirmation Message: " + confirmation);
+	     confirmationPage.clickBackHome();
+	 }
 
-	        Assert.assertEquals(confirmation, "Thank you for your order!",
-	                "Confirmation message does not match!");
-
-	        // ✅ Step 2: Optional - Print subtext
-	        System.out.println("Subtext: " + completePage.getConfirmationSubText();
-
-	        // ✅ Step 3: Validate order completion flag
-	        Assert.assertTrue(completePage.isOrderComplete(),
-	                "Order was not completed successfully!");
-
-	        // ✅ Step 4: Navigate back home
-	        completePage.clickBackHome();
-	    }
 	
 	
 

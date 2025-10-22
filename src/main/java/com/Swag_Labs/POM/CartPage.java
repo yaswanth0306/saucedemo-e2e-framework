@@ -1,55 +1,44 @@
 package com.Swag_Labs.POM;
 
-
-
-import java.util.List;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CartPage {
-	
-	    private WebDriver driver;
+    private WebDriver driver;
 
-	    // 1️⃣ Cart Page Title
-	    @FindBy(xpath = "//span[@class='title']")
-	    private WebElement cartTitle;
+    @FindBy(className = "inventory_item_name")
+    private List<WebElement> cartItems;
+    
+    @FindBy(id = "checkout")
+    private WebElement checkoutButton;
 
-	    // 2️⃣ List of all products in cart
-	    @FindBy(xpath = "//div[@class='cart_item']")
-	    private List<WebElement> cartItems;
+    public CartPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
-	    // 3️⃣ Checkout Button
-	    @FindBy(id = "checkout")
-	    private WebElement checkoutButton;
+    public List<String> getCartProductNames() {
+        List<String> cartProductNames = new ArrayList<>();
+        for (WebElement item : cartItems) {
+            cartProductNames.add(item.getText().trim());
+        }
+        return cartProductNames;
+    }
 
-	    // Constructor
-	    public CartPage(WebDriver driver) {
-	        this.driver = driver;
-	        PageFactory.initElements(driver, this);
-	    }
+    
+    public int getCartProductCount() {
+        return cartItems.size();
+    }
+    
 
-	    // ✅ Verify Cart Page Loaded
-	    public boolean isCartPageDisplayed() {
-	        return cartTitle.isDisplayed();
-	    }
+    public CheckoutPage clickCheckout() {
+        checkoutButton.click();
+        return new CheckoutPage(driver);
+    }
 
-	    // ✅ Get count of products in cart
-	    public int getCartItemsCount() {
-	        return cartItems.size();
-	    }
-
-	    // ✅ Validate that 2 products were added
-	    public boolean verifyItemsInCart(int expectedCount) {
-	        return cartItems.size() == expectedCount;
-	    }
-
-	    // ✅ Proceed to checkout
-	    public void clickCheckout() {
-	        checkoutButton.click();
-	    }
-	}
-
-
+}
