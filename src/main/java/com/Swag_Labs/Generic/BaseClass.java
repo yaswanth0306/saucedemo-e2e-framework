@@ -50,6 +50,7 @@ public class BaseClass {
 	
 	@AfterMethod
 	public void LogoutToSauceDemo() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		driver.findElement(By.id("react-burger-menu-btn")).click();
 		driver.findElement(By.id("logout_sidebar_link")).click();
 		Reporter.log("loged out",true);
