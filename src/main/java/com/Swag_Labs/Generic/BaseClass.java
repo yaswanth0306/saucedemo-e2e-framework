@@ -2,10 +2,10 @@ package com.Swag_Labs.Generic;
 
 import java.io.IOException;
 import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -29,8 +29,8 @@ public class BaseClass {
 	}
 	
 	@BeforeTest
-	public void launchBrowser(@Optional("chrome") String browser) throws IOException {
-		driver = new ChromeDriver();
+	public void launchBrowser() throws IOException {
+		driver = new EdgeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		driver.get("https://www.saucedemo.com/");
@@ -41,9 +41,10 @@ public class BaseClass {
 	@BeforeMethod
 	public void loginToSauceDemo() throws IOException {
 		LoginPage lp = new LoginPage(driver);
-		String un = f.readDataFromTestdataExcel("1",1,0);
-		String pw = f.readDataFromTestdataExcel("1",1,1);
-		lp.login(driver, un, pw);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		String un = f.readDataFromTestdataExcel("Sheet1",1,0);
+		String pw = f.readDataFromTestdataExcel("Sheet1",1,1);
+		lp.login( un, pw);
 		
 	}
 	

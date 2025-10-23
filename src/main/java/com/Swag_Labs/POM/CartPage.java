@@ -14,6 +14,9 @@ public class CartPage {
     @FindBy(className = "inventory_item_name")
     private List<WebElement> cartItems;
     
+    @FindBy(css = ".cart_item .inventory_item_price")
+    private List<WebElement> cartProductPrices;
+    
     @FindBy(id = "checkout")
     private WebElement checkoutButton;
 
@@ -28,6 +31,15 @@ public class CartPage {
             cartProductNames.add(item.getText().trim());
         }
         return cartProductNames;
+    }
+    
+    public List<Double> getCartProductPrices() {
+        List<Double> prices = new ArrayList<>();
+        for (WebElement e : cartProductPrices) {
+            // Remove $ and convert to double
+            prices.add(Double.parseDouble(e.getText().replace("$", "").trim()));
+        }
+        return prices;
     }
 
     

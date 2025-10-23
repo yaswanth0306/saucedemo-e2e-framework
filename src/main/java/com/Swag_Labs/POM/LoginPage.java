@@ -6,27 +6,25 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
-	
-	@FindBy(id="user-name")
-	private WebElement username;
-	
-	@FindBy(id="password")
-	private WebElement password;
-	
-	@FindBy(id="login-button")
-	private WebElement login_btn;
-	
-	public LoginPage(WebDriver driver){
-		PageFactory.initElements(driver, this);
-		
-	}
-	
-	public void login(WebDriver driver,String username,String password) {
-			LoginPage lp = new LoginPage(driver);
-			lp.username.sendKeys(username);
-			lp.password.sendKeys(password);
-			lp.login_btn.click();
-	}
-	
 
+    @FindBy(id = "user-name")
+    private WebElement username;
+
+    @FindBy(id = "password")
+    private WebElement password;
+
+    @FindBy(id = "login-button")
+    private WebElement login_btn;
+
+    public LoginPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+    }
+
+    // ✅ Correct method
+    public void login(String un, String pw) {
+        username.sendKeys(un);
+        password.sendKeys(pw);
+        login_btn.click();
+    }
 }
+

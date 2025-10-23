@@ -25,6 +25,9 @@ public class OrderSummaryPage {
 
     @FindBy(className = "summary_total_label")
     private WebElement totalLabel;
+    
+    @FindBy(css = ".cart_item .inventory_item_price")
+    private List<WebElement> summaryItemPrices;
 
     @FindBy(id = "finish")
     private WebElement finishButton;
@@ -41,6 +44,14 @@ public class OrderSummaryPage {
             names.add(item.getText().trim());
         }
         return names;
+    }
+    
+    public List<Double> getSummaryItemPrices() {
+        List<Double> prices = new ArrayList<>();
+        for (WebElement e : summaryItemPrices) {
+            prices.add(Double.parseDouble(e.getText().replace("$", "").trim()));
+        }
+        return prices;
     }
 
     // ✅ Print all pricing info (optional verification)

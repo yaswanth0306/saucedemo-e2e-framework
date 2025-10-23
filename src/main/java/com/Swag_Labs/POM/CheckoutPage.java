@@ -6,45 +6,42 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class CheckoutPage {
-	
-	
-	    private WebDriver driver;
 
-	    // --- Locators for checkout fields ---
-	    @FindBy(id = "first-name")
-	    private WebElement firstNameInput;
+    private WebDriver driver;
 
-	    @FindBy(id = "last-name")
-	    private WebElement lastNameInput;
+    public CheckoutPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
-	    @FindBy(id = "postal-code")
-	    private WebElement zipCodeInput;
+    @FindBy(id = "first-name")
+    private WebElement firstNameInput;
 
-	    @FindBy(id = "continue")
-	    private WebElement continueButton;
+    @FindBy(id = "last-name")
+    private WebElement lastNameInput;
 
-	    public CheckoutPage(WebDriver driver) {
-	        this.driver = driver;
-	        PageFactory.initElements(driver, this);
-	    }
+    @FindBy(id = "postal-code")
+    private WebElement zipCodeInput;
 
-	    
-	    public void enterCheckoutInformation(String firstName, String lastName, String zip) {
-	        firstNameInput.clear();
-	        firstNameInput.sendKeys(firstName);
+    @FindBy(id = "continue")
+    private WebElement continueButton;
 
-	        lastNameInput.clear();
-	        lastNameInput.sendKeys(lastName);
+    public void enterCheckoutInformation(String firstName, String lastName, String zipCode) {
+        firstNameInput.clear();
+        firstNameInput.sendKeys(firstName);
 
-	        zipCodeInput.clear();
-	        zipCodeInput.sendKeys(zip);
-	    }
+        lastNameInput.clear();
+        lastNameInput.sendKeys(lastName);
 
-	    public OrderSummaryPage clickContinue() {
-	        continueButton.click();
-	        return new OrderSummaryPage(driver);
-	    }
-	}
+        zipCodeInput.clear();
+        zipCodeInput.sendKeys(zipCode);
+    }
+
+    public OrderSummaryPage clickContinue() {
+        continueButton.click();
+        return new OrderSummaryPage(driver);
+    }
+}
 
 
 

@@ -1,11 +1,15 @@
 package com.Swag_Labs.Assignments;
 
 
+import java.io.IOException;
 import java.util.List;
+
+import org.apache.poi.EncryptedDocumentException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.Swag_Labs.Generic.BaseClass;
+import com.Swag_Labs.Generic.FileUtils;
 import com.Swag_Labs.POM.CartPage;
 import com.Swag_Labs.POM.CheckoutPage;
 import com.Swag_Labs.POM.ConfirmationPage;
@@ -13,133 +17,69 @@ import com.Swag_Labs.POM.LoginPage;
 import com.Swag_Labs.POM.OrderSummaryPage;
 import com.Swag_Labs.POM.ProductPage;
 
-public class Assignments extends BaseClass{
-	
-	@Test(priority = 1)
-	public void verifyTitle() {
-		LoginPage lp = new LoginPage(driver);
-		lp.login(driver, "standard_user", "secret_sauce");
-		String actualTitle = driver.getTitle();
-		String exceptedTitle = "Swag Labs";
-		SoftAssert sa = new SoftAssert();
-		sa.assertEquals(actualTitle, exceptedTitle);
-		sa.assertAll();
-	}
-	
-	@Test(priority = 2)
-	public void addProductsToCartTest() {
-	    LoginPage login = new LoginPage(driver);
-	    ProductPage products = new ProductPage(driver);
-	    login.login(driver,"standard_user", "secret_sauce");
-	  //  Assert.assertTrue(products.isProductsPageDisplayed(), "Login Failed!");
-	    products.addTwoProducts();
-	    products.goToCart();
-	}
-	
-	@Test(priority = 3)
-	public void validateAddedProductsAndCount() {
-	    LoginPage loginPage = new LoginPage(driver);
-	    loginPage.login(driver,"standard_user", "secret_sauce");
+public class Assignments extends BaseClass {
 
-	    ProductPage productPage = new ProductPage(driver);
-	    productPage.addTwoProducts();
+    @Test(priority = 1)
+    public void completeE2EOrderFlow() throws IOException {
 
-	    List<String> addedProducts = productPage.getAddedProductNames();
-	    int addedCount = productPage.getAddedProductCount();
+        String actualTitle = driver.getTitle();
+        String expectedTitle = "Swag Labs";
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualTitle, expectedTitle, "❌ Page title mismatch!");
+        System.out.println("✅ Title verified: " + actualTitle);
 
-	    CartPage cartPage = productPage.goToCart();
-	    List<String> cartProducts = cartPage.getCartProductNames();
-	    int cartCount = cartPage.getCartProductCount();
+        // 2️⃣ Add products to cart
+        ProductPage productPage = new ProductPage(driver);
+        productPage.addTwoProducts();
+        CartPage cartPage = productPage.goToCart();
 
-	    System.out.println("Added Products: " + addedProducts);
-	    System.out.println("Cart Products: " + cartProducts);
-	    System.out.println("Added Count: " + addedCount + " | Cart Count: " + cartCount);
-	    
-	    Assert.assertEquals(cartCount, addedCount, " Product count mismatch!");
-	    Assert.assertEquals(cartProducts, addedProducts, " Cart products do not match added products!");
+        List<String> cartItems = cartPage.getCartProductNames();
+        List<Double> cartPrices = cartPage.getCartProductPrices();
+        int cartCount = cartPage.getCartProductCount();
 
-	    System.out.println(" Products and count match successfully!");
-	}
+        System.out.println("✅ Cart Items: " + cartItems + " | Count: " + cartCount);
+        System.out.println("✅ Cart Prices: " + cartPrices);
+        
+        CheckoutPage checkoutPage = cartPage.clickCheckout();
 
+        // 3️⃣ Checkout with Excel data
+        FileUtils fileUtils = new FileUtils();
+        String firstName = fileUtils.readDataFromCheckoutdetailsExcel("Sheet1", 1, 0);
+        String lastName = fileUtils.readDataFromCheckoutdetailsExcel("Sheet1", 1, 1);
+        String zipCode = fileUtils.readDataFromCheckoutdetailsExcel("Sheet1", 1, 2);
+        checkoutPage.enterCheckoutInformation(firstName, lastName, zipCode);
 
-	 @Test(priority = 4)
-	    public void enterCheckoutDetails(String firstName, String lastName, String zip) {
-	        CheckoutPage checkoutPage = new CheckoutPage(driver);
-	        checkoutPage.enterCheckoutInformation(firstName, lastName, zip);
-	        checkoutPage.clickContinue();
-	     
-	    }
-	 
-	 @Test
-	 public void validateOrderSummaryItems() {
-	     LoginPage loginPage = new LoginPage(driver);
-	     loginPage.login(driver,"standard_user", "secret_sauce");
+        OrderSummaryPage summaryPage = checkoutPage.clickContinue();
 
-	     ProductPage productPage = new ProductPage(driver);
-	     productPage.addTwoProducts();
-	     CartPage cartPage = productPage.goToCart();
+        // 4️⃣ Validate order summary items and prices
+        List<String> summaryItems = summaryPage.getSummaryItemNames();
+        List<Double> summaryPrices = summaryPage.getSummaryItemPrices();
 
-	  
-	     List<String> cartItems = cartPage.getCartProductNames();
-	     System.out.println("Items in Cart: " + cartItems);
+        // Validate names
+        softAssert.assertEquals(summaryItems, cartItems, "❌ Summary items do not match Cart items!");
+        System.out.println("✅ Order Summary validated: " + summaryItems);
 
-	     CheckoutPage checkoutPage = cartPage.clickCheckout();
-	     checkoutPage.enterCheckoutInformation(null, null, null);;
-	     OrderSummaryPage summaryPage = checkoutPage.clickContinue();
+        // Validate prices
+        for (int i = 0; i < cartItems.size(); i++) {
+        	softAssert.assertEquals(summaryPrices.get(i), cartPrices.get(i),
+                    "❌ Price mismatch for item: " + cartItems.get(i));
+        }
+        System.out.println("✅ Price comparison passed: " + summaryPrices);
 
-	   
-	     List<String> summaryItems = summaryPage.getSummaryItemNames();
-	     System.out.println("Items in Summary: " + summaryItems);
+        summaryPage.printOrderSummaryDetails();
 
-	     Assert.assertEquals(summaryItems.size(), cartItems.size(),
-	             "❌ Item count mismatch between Cart and Summary!");
+        // 5️⃣ Finish order and confirm
+        ConfirmationPage confirmationPage = summaryPage.clickFinish();
+        softAssert.assertTrue(confirmationPage.isOrderConfirmed(), "❌ Order confirmation failed!");
+        String message = confirmationPage.getConfirmationMessage();
+        System.out.println("✅ Confirmation Message: " + message);
+        softAssert.assertTrue(message.contains("dispatched"), "❌ Unexpected confirmation message!");
 
-	     for (int i = 0; i < cartItems.size(); i++) {
-	         Assert.assertEquals(summaryItems.get(i), cartItems.get(i),
-	                 "❌ Product mismatch: " + cartItems.get(i) + " vs " + summaryItems.get(i));
-	     }
-
-	     System.out.println("✅ Order Summary Validation Passed!");
-
-	    
-	     summaryPage.printOrderSummaryDetails();
-
-	     
-	     ConfirmationPage confirmationPage = summaryPage.clickFinish();
-	     Assert.assertTrue(confirmationPage.isOrderConfirmed(), "❌ Order confirmation failed!");
-	 }
-
-	 
-	 @Test
-	 public void verifyOrderCompletion() {
-	     LoginPage loginPage = new LoginPage(driver);
-	     loginPage.login(driver,"standard_user", "secret_sauce");
-
-	     ProductPage productPage = new ProductPage(driver);
-	     productPage.addTwoProducts();
-	     CartPage cartPage = productPage.goToCart();
-
-	     CheckoutPage checkoutPage = cartPage.clickCheckout();
-	     checkoutPage.enterCheckoutInformation("John", "Doe", "560001");
-	     OrderSummaryPage summaryPage = checkoutPage.clickContinue();
-
-	     ConfirmationPage confirmationPage = summaryPage.clickFinish();
-
-	     Assert.assertTrue(confirmationPage.isOrderConfirmed(), "❌ Order confirmation not displayed!");
-
-	     
-	     String message = confirmationPage.getConfirmationMessage();
-	     System.out.println("✅ Confirmation Message: " + message);
-
-	     
-	     Assert.assertTrue(message.contains("dispatched"), "❌ Order message not as expected!");
-	     System.out.println("✅ Order completed successfully!");
-
-	     confirmationPage.clickBackHome();
-	 }
-
-	
-	
-
-
+        // 6️⃣ Back to home
+        confirmationPage.clickBackHome();
+        System.out.println("✅ Order completed and back to home page.");
+        
+        softAssert.assertAll();
+    }
 }
+

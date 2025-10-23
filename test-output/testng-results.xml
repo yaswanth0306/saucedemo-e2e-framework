@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="0" failed="0" skipped="1">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
     <line>
       <![CDATA[database is connected]]>
@@ -8,146 +8,57 @@
       <![CDATA[browser launched]]>
     </line>
     <line>
+      <![CDATA[loged out]]>
+    </line>
+    <line>
       <![CDATA[Browser closed]]>
     </line>
     <line>
       <![CDATA[database disconnected]]>
     </line>
   </reporter-output>
-  <suite started-at="2025-10-21T19:26:00 IST" name="Default suite" finished-at="2025-10-21T19:26:09 IST" duration-ms="8419">
+  <suite started-at="2025-10-23T07:07:52Z" name="Default suite" finished-at="2025-10-23T07:08:05Z" duration-ms="12926">
     <groups>
     </groups>
-    <test started-at="2025-10-21T19:26:00 IST" name="Default test" finished-at="2025-10-21T19:26:09 IST" duration-ms="8419">
+    <test started-at="2025-10-23T07:07:52Z" name="Default test" finished-at="2025-10-23T07:08:05Z" duration-ms="12926">
       <class name="com.Swag_Labs.Assignments.Assignments">
-        <test-method is-config="true" signature="databaseConnection()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@7eac9008]" started-at="2025-10-21T19:26:00 IST" name="databaseConnection" finished-at="2025-10-21T19:26:00 IST" duration-ms="20" status="PASS">
+        <test-method is-config="true" signature="databaseConnection()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:37:52Z" name="databaseConnection" finished-at="2025-10-23T12:37:52Z" duration-ms="9" status="PASS">
           <reporter-output>
             <line>
               <![CDATA[database is connected]]>
             </line>
           </reporter-output>
         </test-method> <!-- databaseConnection -->
-        <test-method is-config="true" signature="launchBrowser(java.lang.String)[pri:0, instance:com.Swag_Labs.Assignments.Assignments@7eac9008]" started-at="2025-10-21T19:26:00 IST" name="launchBrowser" finished-at="2025-10-21T19:26:07 IST" duration-ms="7226" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[chrome]]>
-              </value>
-            </param>
-          </params>
+        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:37:52Z" name="launchBrowser" finished-at="2025-10-23T12:38:00Z" duration-ms="8026" status="PASS">
           <reporter-output>
             <line>
               <![CDATA[browser launched]]>
             </line>
           </reporter-output>
         </test-method> <!-- launchBrowser -->
-        <test-method is-config="true" signature="loginToVtigers()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@7eac9008]" started-at="2025-10-21T19:26:08 IST" name="loginToVtigers" finished-at="2025-10-21T19:26:08 IST" duration-ms="485" status="FAIL">
-          <exception class="java.io.IOException">
-            <message>
-              <![CDATA[Your InputStream was neither an OLE2 stream, nor an OOXML stream or you haven't provide the poi-ooxml*.jar in the classpath/modulepath - FileMagic: OOXML, having providers: [org.apache.poi.hssf.usermodel.HSSFWorkbookFactory@77307458]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream or you haven't provide the poi-ooxml*.jar in the classpath/modulepath - FileMagic: OOXML, having providers: [org.apache.poi.hssf.usermodel.HSSFWorkbookFactory@77307458]
-at org.apache.poi.ss.usermodel.WorkbookFactory.wp(WorkbookFactory.java:334)
-at org.apache.poi.ss.usermodel.WorkbookFactory.create(WorkbookFactory.java:224)
-at org.apache.poi.ss.usermodel.WorkbookFactory.create(WorkbookFactory.java:185)
-at com.Swag_Labs.Generic.FileUtils.readDataFromExcel(FileUtils.java:14)
-at com.Swag_Labs.Generic.BaseClass.loginToVtigers(BaseClass.java:44)
-at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:71)
-at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:400)
-at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:333)
-at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:836)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:601)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
-at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
-at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
-at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
-at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-at org.testng.TestRunner.privateRun(TestRunner.java:741)
-at org.testng.TestRunner.run(TestRunner.java:616)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
-at org.testng.SuiteRunner.run(SuiteRunner.java:312)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
-at org.testng.TestNG.runSuites(TestNG.java:1112)
-at org.testng.TestNG.run(TestNG.java:1079)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.io.IOException -->
+        <test-method is-config="true" signature="loginToSauceDemo()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:38:00Z" name="loginToSauceDemo" finished-at="2025-10-23T12:38:02Z" duration-ms="1690" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- loginToVtigers -->
-        <test-method signature="verifyTitle()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@7eac9008]" started-at="2025-10-21T19:26:08 IST" name="verifyTitle" finished-at="2025-10-21T19:26:08 IST" duration-ms="0" status="SKIP">
-          <exception class="java.io.IOException">
-            <message>
-              <![CDATA[Your InputStream was neither an OLE2 stream, nor an OOXML stream or you haven't provide the poi-ooxml*.jar in the classpath/modulepath - FileMagic: OOXML, having providers: [org.apache.poi.hssf.usermodel.HSSFWorkbookFactory@77307458]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream or you haven't provide the poi-ooxml*.jar in the classpath/modulepath - FileMagic: OOXML, having providers: [org.apache.poi.hssf.usermodel.HSSFWorkbookFactory@77307458]
-at org.apache.poi.ss.usermodel.WorkbookFactory.wp(WorkbookFactory.java:334)
-at org.apache.poi.ss.usermodel.WorkbookFactory.create(WorkbookFactory.java:224)
-at org.apache.poi.ss.usermodel.WorkbookFactory.create(WorkbookFactory.java:185)
-at com.Swag_Labs.Generic.FileUtils.readDataFromExcel(FileUtils.java:14)
-at com.Swag_Labs.Generic.BaseClass.loginToVtigers(BaseClass.java:44)
-at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:71)
-at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:400)
-at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:333)
-at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:836)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:601)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
-at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
-at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
-at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
-at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-at org.testng.TestRunner.privateRun(TestRunner.java:741)
-at org.testng.TestRunner.run(TestRunner.java:616)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
-at org.testng.SuiteRunner.run(SuiteRunner.java:312)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
-at org.testng.TestNG.runSuites(TestNG.java:1112)
-at org.testng.TestNG.run(TestNG.java:1079)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.io.IOException -->
+        </test-method> <!-- loginToSauceDemo -->
+        <test-method signature="completeE2EOrderFlow()[pri:1, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:38:02Z" name="completeE2EOrderFlow" finished-at="2025-10-23T12:38:04Z" duration-ms="2432" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- verifyTitle -->
-        <test-method is-config="true" signature="LogoutToActitime()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@7eac9008]" started-at="2025-10-21T19:26:08 IST" name="LogoutToActitime" finished-at="2025-10-21T19:26:08 IST" duration-ms="0" status="SKIP">
+        </test-method> <!-- completeE2EOrderFlow -->
+        <test-method is-config="true" signature="LogoutToSauceDemo()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:38:04Z" name="LogoutToSauceDemo" finished-at="2025-10-23T12:38:04Z" duration-ms="279" status="PASS">
           <reporter-output>
+            <line>
+              <![CDATA[loged out]]>
+            </line>
           </reporter-output>
-        </test-method> <!-- LogoutToActitime -->
-        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@7eac9008]" started-at="2025-10-21T19:26:08 IST" name="closeBrowser" finished-at="2025-10-21T19:26:09 IST" duration-ms="462" status="PASS">
+        </test-method> <!-- LogoutToSauceDemo -->
+        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:38:04Z" name="closeBrowser" finished-at="2025-10-23T12:38:05Z" duration-ms="479" status="PASS">
           <reporter-output>
             <line>
               <![CDATA[Browser closed]]>
             </line>
           </reporter-output>
         </test-method> <!-- closeBrowser -->
-        <test-method is-config="true" signature="disconnectDatabase()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@7eac9008]" started-at="2025-10-21T19:26:09 IST" name="disconnectDatabase" finished-at="2025-10-21T19:26:09 IST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="disconnectDatabase()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:38:05Z" name="disconnectDatabase" finished-at="2025-10-23T12:38:05Z" duration-ms="0" status="PASS">
           <reporter-output>
             <line>
               <![CDATA[database disconnected]]>
