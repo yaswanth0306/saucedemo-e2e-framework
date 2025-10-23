@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.Swag_Labs.Generic.BaseClass;
 import com.Swag_Labs.Generic.FileUtils;
+import com.Swag_Labs.Generic.Screenshot;
 import com.Swag_Labs.POM.CartPage;
 import com.Swag_Labs.POM.CheckoutPage;
 import com.Swag_Labs.POM.ConfirmationPage;
@@ -74,6 +75,8 @@ public class Assignments extends BaseClass {
         softAssert.assertTrue(confirmationPage.isOrderConfirmed(), " Order confirmation failed!");
         String message = confirmationPage.getConfirmationMessage();
         System.out.println(" Confirmation Message: " + message);
+        Screenshot s= new Screenshot();
+        s.screenshot(driver,"photo");
         softAssert.assertTrue(message.contains("dispatched"), " Unexpected confirmation message!");
 
         //  Back to home

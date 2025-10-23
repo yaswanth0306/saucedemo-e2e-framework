@@ -17,48 +17,48 @@
       <![CDATA[database disconnected]]>
     </line>
   </reporter-output>
-  <suite started-at="2025-10-23T07:07:52Z" name="Default suite" finished-at="2025-10-23T07:08:05Z" duration-ms="12926">
+  <suite started-at="2025-10-23T09:49:45Z" name="Default suite" finished-at="2025-10-23T09:50:03Z" duration-ms="18577">
     <groups>
     </groups>
-    <test started-at="2025-10-23T07:07:52Z" name="Default test" finished-at="2025-10-23T07:08:05Z" duration-ms="12926">
+    <test started-at="2025-10-23T09:49:45Z" name="Default test" finished-at="2025-10-23T09:50:03Z" duration-ms="18577">
       <class name="com.Swag_Labs.Assignments.Assignments">
-        <test-method is-config="true" signature="databaseConnection()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:37:52Z" name="databaseConnection" finished-at="2025-10-23T12:37:52Z" duration-ms="9" status="PASS">
+        <test-method is-config="true" signature="databaseConnection()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T15:19:45Z" name="databaseConnection" finished-at="2025-10-23T15:19:45Z" duration-ms="11" status="PASS">
           <reporter-output>
             <line>
               <![CDATA[database is connected]]>
             </line>
           </reporter-output>
         </test-method> <!-- databaseConnection -->
-        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:37:52Z" name="launchBrowser" finished-at="2025-10-23T12:38:00Z" duration-ms="8026" status="PASS">
+        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T15:19:45Z" name="launchBrowser" finished-at="2025-10-23T15:19:53Z" duration-ms="8752" status="PASS">
           <reporter-output>
             <line>
               <![CDATA[browser launched]]>
             </line>
           </reporter-output>
         </test-method> <!-- launchBrowser -->
-        <test-method is-config="true" signature="loginToSauceDemo()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:38:00Z" name="loginToSauceDemo" finished-at="2025-10-23T12:38:02Z" duration-ms="1690" status="PASS">
+        <test-method is-config="true" signature="loginToSauceDemo()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T15:19:53Z" name="loginToSauceDemo" finished-at="2025-10-23T15:19:58Z" duration-ms="4487" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loginToSauceDemo -->
-        <test-method signature="completeE2EOrderFlow()[pri:1, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:38:02Z" name="completeE2EOrderFlow" finished-at="2025-10-23T12:38:04Z" duration-ms="2432" status="PASS">
+        <test-method signature="completeE2EOrderFlow()[pri:1, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T15:19:58Z" name="completeE2EOrderFlow" finished-at="2025-10-23T15:20:01Z" duration-ms="3599" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- completeE2EOrderFlow -->
-        <test-method is-config="true" signature="LogoutToSauceDemo()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:38:04Z" name="LogoutToSauceDemo" finished-at="2025-10-23T12:38:04Z" duration-ms="279" status="PASS">
+        <test-method is-config="true" signature="LogoutToSauceDemo()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T15:20:01Z" name="LogoutToSauceDemo" finished-at="2025-10-23T15:20:02Z" duration-ms="424" status="PASS">
           <reporter-output>
             <line>
               <![CDATA[loged out]]>
             </line>
           </reporter-output>
         </test-method> <!-- LogoutToSauceDemo -->
-        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:38:04Z" name="closeBrowser" finished-at="2025-10-23T12:38:05Z" duration-ms="479" status="PASS">
+        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T15:20:02Z" name="closeBrowser" finished-at="2025-10-23T15:20:03Z" duration-ms="1254" status="PASS">
           <reporter-output>
             <line>
               <![CDATA[Browser closed]]>
             </line>
           </reporter-output>
         </test-method> <!-- closeBrowser -->
-        <test-method is-config="true" signature="disconnectDatabase()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T12:38:05Z" name="disconnectDatabase" finished-at="2025-10-23T12:38:05Z" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="disconnectDatabase()[pri:0, instance:com.Swag_Labs.Assignments.Assignments@3b7d3a38]" started-at="2025-10-23T15:20:03Z" name="disconnectDatabase" finished-at="2025-10-23T15:20:03Z" duration-ms="0" status="PASS">
           <reporter-output>
             <line>
               <![CDATA[database disconnected]]>

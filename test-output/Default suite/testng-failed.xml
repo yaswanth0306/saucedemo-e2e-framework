@@ -5,9 +5,12 @@
     <classes>
       <class name="com.Swag_Labs.Assignments.Assignments">
         <methods>
+          <include name="closeBrowser"/>
           <include name="loginToSauceDemo"/>
+          <include name="disconnectDatabase"/>
           <include name="completeE2EOrderFlow"/>
           <include name="launchBrowser"/>
+          <include name="LogoutToSauceDemo"/>
           <include name="databaseConnection"/>
         </methods>
       </class> <!-- com.Swag_Labs.Assignments.Assignments -->
