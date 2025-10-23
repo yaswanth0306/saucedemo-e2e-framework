@@ -73,7 +73,7 @@ public class Assignments extends BaseClass {
         ConfirmationPage confirmationPage = summaryPage.clickFinish();
         softAssert.assertTrue(confirmationPage.isOrderConfirmed(), " Order confirmation failed!");
         String message = confirmationPage.getConfirmationMessage();
-        System.out.println("✅ Confirmation Message: " + message);
+        System.out.println(" Confirmation Message: " + message);
         softAssert.assertTrue(message.contains("dispatched"), " Unexpected confirmation message!");
 
         //  Back to home
